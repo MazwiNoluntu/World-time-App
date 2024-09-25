@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>World Time App</title>
+    <link rel="stylesheet" href="style.css">
+    
+</head>
+<body>
+    <p id="local">Loading local time...</p>
+    <div class="table-container">
+        <div id="output"></div>
+        <div id="extra-output"></div>
+    </div>
+
+    <script>
+        var cities = [
+            {name:"Australia", utcOffset: +8, flag: "Australia.png"},
+            {name:"Botswana", utcOffset: +2, flag: "Botswana.png"},
+            {name:"Belgium", utcOffset: +2, flag: "Belgium.png"},
+            {name:"Argentina", utcOffset: -3, flag: "Argentina.png"},
+            {name:"Bahrain", utcOffset: +3, flag: "Bahrain.png"},
+            {name:"Ethiopia", utcOffset: +3, flag: "Ethiopia.png"},
+            {name:"Malawi", utcOffset: +2, flag: "Malawi.png"},
+            {name:"Malta", utcOffset: +2, flag: "Malta.png"}
+            
+        ];
+
+        var city= [
+            {name:"New-Zealand", utcOffset: +12, flag: "New-Zealand.png"},
+            {name:"Saudi-Arabia", utcOffset: +3, flag: "Saudi-Arabia.png"},
+            {name:"Switzerland", utcOffset: +2, flag: "Switzerland.png"},
+            {name:"Vietnam", utcOffset: +7, flag: "Vietnam.png"},
+            {name:"Thailand", utcOffset: +7, flag: "Thailand.png"},
+            {name:"Turkey", utcOffset: +3, flag: "Turkey.png"},
+            {name:"Ukraine", utcOffset: +3, flag: "Ukraine.png"},
+            {name:"Uruguay", utcOffset: +3, flag: "Uruguay.png"}
+            
+        ];
+        // Sort cities alphabetically by name
+        cities.sort(compare);
+        function compare(a, b) {
+            var cityA = a.name.toUpperCase();
+            var cityB = b.name.toUpperCase();
+            return cityA.localeCompare(cityB);
+        }
+
+        function getUtcTime() {
+            var dt = new Date();
+            var utcOffset = dt.getTimezoneOffset() * 60000; 
+            var utcTime = new Date(dt.getTime() + utcOffset);
+            return utcTime.getTime();
+        }
+
+        function getCurrentTime(utcOffset) {
+            var mil = 1000 * 60 * 60; 
+            var time = new Date(getUtcTime() + utcOffset * mil);
+            return time.toLocaleTimeString();
+        }
+
+        function displayWorldTime() {
+            var dt = new Date();
+            document.getElementById("local").innerHTML = "Local time: " + dt.toLocaleTimeString();
+
+            // First Table
+            var output = '<table id="cities">';
+            output += '<tr><th class="col1">Flag</th><th class="col2">City</th><th>Time</th></tr>';
+            
+            for (var i = 0; i < cities.length; i++) {
+                output += `
+                    <tr>
+                        <td><img src="images/${cities[i].flag}" alt="${cities[i].name} flag" width="40"/></td>
+                        <td>${cities[i].name}</td>
+                        <td>${getCurrentTime(cities[i].utcOffset)}</td>
+                    </tr>
+                `;
+            }
+            output += '</table>';
+            document.getElementById("output").innerHTML = output;
+
+            // Second Table (additional table)
+            var extraOutput = '<table id="cities">';
+            extraOutput += '<tr><th class="col1">Flag</th><th class="col2">City</th><th>Time</th></tr>';
+            
+            for (var i = 0; i < city.length; i++) {
+                extraOutput += `
+                    <tr>
+                        <td><img src="images/${city[i].flag}" alt="${city[i].name} flag" width="40"/></td>
+                        <td>${city[i].name}</td>
+                        <td>${getCurrentTime(city[i].utcOffset)}</td>
+                    </tr>
+                `;
+            }
+            extraOutput += '</table>';
+            document.getElementById("extra-output").innerHTML = extraOutput;
+        }
+
+        // Initial display of world times
+        displayWorldTime();
+
+        // Update every 1 minute
+        setInterval(displayWorldTime, 60000);
+    </script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+body{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+
+}
+
+#local{
+    width: 100%;
+    background-color: aqua;
+    padding: 15px 0;
+    margin: 0;
+
+    font-size: 1.5rem;
+    color: blueviolet;
+    text-align: center;
+}
+
+#cities{
+    border-collapse: collapse;
+    width: 50%;
+    display: flex;
+    margin-top: 30px;
+}
+
+#cities td{
+border: 1px solid #dedede;
+padding: 8px;
+}
+
+#cities tr:nth-child(even){
+background-color: goldenrod;
+}
+
+.col1{
+    width: 10%;
+}
+
+.col2{
+    width:45% ;
+}
+
+/* Add a flexbox to place tables side by side */
+.table-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px; /* Adjust the gap between the tables */
+    margin-right: 300px;
+    
+    
+}
+
+table {
+    border-collapse: collapse;
+    width: 100px;
+    height: 10px;
+    
+}
+#cities{
+    margin-left: 300px;
+    
+}
+
+th, td {
+    border: 1px solid black;
+    padding: 10px;
+    text-align: left;
+    height: 30px;
+
+
+}
+
+th.col1 {
+    width: 10%;
+}
+
+th.col2 {
+    width: 45%;
+}
+
